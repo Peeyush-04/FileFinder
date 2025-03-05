@@ -2,45 +2,18 @@
 
 **FileFinder** is a cross-platform file indexing and management app built using React Native and Expo. It enables users to quickly index, search, and manage files efficiently across Android, iOS, and web platforms.
 
-## Features
+## Current Features
 
 - **File Indexing** – Automatically scan and organize files on your device.
 - **Fast Search** – Quickly find files using a responsive search function.
 - **Cross-Platform** – Works on Android, iOS, and web.
 - **Custom Themes** – Supports theme customization using React Context API.
 
-## Getting Started
+## Planned Improvements
 
-### Integrating C++ with React Native
-FileFinder supports integration of C++ modules for performance-intensive operations. The `cpp/` directory houses all native C++ files, including source code and React Native bridge bindings.
+- **Enhanced Performance with C++ Integration** – Integrate high-performance C++ modules for file indexing and searching using React Native’s TurboModules and the New Architecture, leveraging JavaScript Interface (JSI) for optimal speed and efficiency in the `FileFinderApp`.
 
-#### Folder Structure for C++
-```
-cpp/
-├── bridge/         # React Native bridge for C++ modules
-├── fileindexer/    # File indexing logic in C++
-├── CMakeLists.txt  # CMake build configuration
-```
-
-#### Steps to Add C++ Integration:
-1. **Set Up Native Modules:**
-   - Create a `cpp` folder in the project root.
-   - Organize the code into `bridge/` and `fileindexer/`.
-2. **Bridge C++ with React Native:**
-   - Use `react-native-mmkv` or `react-native-vision-camera` as examples of C++-powered modules.
-   - Modify the `android/app/build.gradle` and `ios/Podfile` to include necessary dependencies.
-3. **Linking Native Modules:**
-   ```sh
-   npx react-native run-android
-   ```
-   or for iOS:
-   ```sh
-   cd ios && pod install && cd ..
-   ```
-4. **Call C++ Methods from JavaScript:**
-   - Use `NativeModules.YourModule.methodName()` in React Native components.
-
-### Prerequisites
+## Prerequisites
 
 - Install [Node.js](https://nodejs.org/) (v16.x LTS or later)
 - Install [Expo CLI](https://docs.expo.dev/get-started/installation/)
@@ -48,8 +21,10 @@ cpp/
   npm install -g expo-cli
   ```
 - Install Git (if not already installed)
+- Install Java 17 LTS (required for Android builds, e.g., OpenJDK 17 from AdoptOpenJDK or Azul)
+- Install Android Studio with NDK (for C++ compilation)
 
-### Installation
+## Installation
 
 1. Clone the repository:
    ```sh
@@ -60,20 +35,24 @@ cpp/
    ```sh
    npm install
    ```
-3. Start the app:
-   - **Android:** `expo start --android`
-   - **iOS:** `expo start --ios`
-   - **Web:** `expo start --web`
+3. Install Expo Dev Client for native module support:
+   ```sh
+   npx expo install expo-dev-client
+   ```
+4. Start the app:
+   - **Android:** `npx expo run:android` (requires custom development client)
+   - **iOS:** `npx expo run:ios` (requires custom development client)
+   - **Web:** `expo start --web` (no native modules required)
 
 ## Project Structure
 
 ```
 FileFinder/
 ├── assets/               # Static assets (images, icons, fonts)
-├── cpp/                  # Native C++ modules
-│   ├── bridge/           # React Native bridge for C++ modules
-│   ├── fileindexer/      # File indexing logic in C++
-│   ├── CMakeLists.txt    # CMake build configuration
+├── cpp/                  # Native C++ modules for file indexing
+│   ├── bridge/           # TurboModule bridge for C++ (e.g., FileSearchModule.cpp)
+│   ├── fileindexer/      # File indexing logic in C++ (e.g., FileIndexer.cpp)
+│   ├── CMakeLists.txt    # CMake build configuration for C++
 ├── src/                  # Source code
 │   ├── components/       # Reusable UI components
 │   ├── contexts/         # Context providers (e.g., ThemeContext)
@@ -101,4 +80,3 @@ To create a new release:
    git tag -a vX.Y.Z -m "Release notes for version X.Y.Z"
    git push origin vX.Y.Z
    ```
-
